@@ -1,8 +1,9 @@
 #include "Cliente.hpp"
 
-Cliente::Cliente(std::string cpf, std::string nome){
+Cliente::Cliente(std::string cpf, std::string nome, struct tm data_nascimento){
     this->cpf = cpf;
     this->nome = nome;
+    this->data_nascimento = data_nascimento;
 }
 
 std::string Cliente::get_cpf(){
@@ -13,8 +14,11 @@ std::string Cliente::get_nome(){
     return this->nome;
 }
 
+struct tm* Cliente::get_data_nascimento(){
+    return &this->data_nascimento;
+}
+
 int calcular_idade(){
-    #define FORMATO_DATA "%d/%m/%Y"
     time_t agora = time(NULL);
     struct tm* atual = localtime(&agora);
     struct tm niver;

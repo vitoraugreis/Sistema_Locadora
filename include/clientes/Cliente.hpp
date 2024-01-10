@@ -7,19 +7,20 @@
 #include <string>
 #include <list>
 
+#define FORMATO_DATA "%d/%m/%Y"
+
 class Cliente{
 private:
     std::string cpf;
     std::string nome;
     struct tm data_nascimento;
-    int idade;
     // midias alugadas
     // historico
 public:
-    Cliente(std::string cpf, std::string nome);
+    Cliente(std::string cpf, std::string nome, struct tm data_nascimento);
     std::string get_cpf();
     std::string get_nome();
-    int get_idade();
+    struct tm* get_data_nascimento();
 };
 
 #endif

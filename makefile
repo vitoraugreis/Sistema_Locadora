@@ -1,7 +1,7 @@
 # ==========================================================================================================
 
 CC = g++
-CFLAGS = -std=c++11 -Wall
+CPPFLAGS = -std=c++11 -Wall
 
 TARGET = Sistema
 
@@ -18,13 +18,17 @@ BUILD_DIR = ./build
 # ==========================================================================================================
 
 # Sistema
-${TARGET}: ${BUILD_DIR}/main.o ${BUILD_DIR}/Cliente.o
-	${CC} ${CFLAGS} -o ${TARGET} ${BUILD_DIR}/*.o
+${TARGET}: ${BUILD_DIR}/main.o ${BUILD_DIR}/SistemaClientes.o ${BUILD_DIR}/Cliente.o
+	${CC} ${CPPFLAGS} -o ${TARGET} ${BUILD_DIR}/*.o
 
 # main.o
-${BUILD_DIR}/main.o: ${SRC_DIR}/main.cpp ${INCLUDE_CLIENTES}/Cliente.hpp
-	${CC} ${CFLAGS} -I ${INCLUDE_CLIENTES}/ -c ${SRC_DIR}/main.cpp -o ${BUILD_DIR}/main.o
+${BUILD_DIR}/main.o: ${SRC_DIR}/main.cpp ${INCLUDE_CLIENTES}/SistemaClientes.hpp
+	${CC} ${CPPFLAGS} -I ${INCLUDE_CLIENTES}/ -c ${SRC_DIR}/main.cpp -o ${BUILD_DIR}/main.o
+
+# SistemaClientes.o
+${BUILD_DIR}/SistemaClientes.o: ${SRC_CLIENTES}/SistemaClientes.cpp ${INCLUDE_CLIENTES}/SistemaClientes.hpp
+	${CC} ${CPPFLAGS} -I ${INCLUDE_CLIENTES}/ -c ${SRC_CLIENTES}/SistemaClientes.cpp -o ${BUILD_DIR}/SistemaClientes.o
 
 # Cliente.o
 ${BUILD_DIR}/Cliente.o: $(SRC_CLIENTES)/Cliente.cpp ${INCLUDE_CLIENTES}/Cliente.hpp
-	$(CC) $(CFLAGS) -I ${INCLUDE_CLIENTES}/ -c $(SRC_CLIENTES)/Cliente.cpp -o $(BUILD_DIR)/Cliente.o
+	$(CC) $(CPPFLAGS) -I ${INCLUDE_CLIENTES}/ -c $(SRC_CLIENTES)/Cliente.cpp -o $(BUILD_DIR)/Cliente.o
