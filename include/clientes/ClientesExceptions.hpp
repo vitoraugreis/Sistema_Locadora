@@ -23,4 +23,11 @@ public:
     }
 };
 
+class data_nascimento_no_futuro : public std::exception{
+public:
+    virtual const char* what() const throw(){
+        return "ERRO: Data de nascimento invalida.";
+    }
+};
+
 }

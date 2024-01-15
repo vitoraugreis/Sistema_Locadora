@@ -13,10 +13,11 @@ private:
     std::list<Cliente*> clientes;
 public:
     SistemaClientes();
-    bool cadastrar();
+    bool cadastrar_cliente();
     Cliente* pesquisar_cliente(std::string cpf);
 };
 
 bool verificacao_cpf(SistemaClientes* sistema, std::string cpf);
+bool verificacao_data_nascimento(struct tm* data_nascimento);
 
 #endif

@@ -18,6 +18,7 @@ private:
     // historico
 public:
     Cliente(std::string cpf, std::string nome, struct tm data_nascimento);
+    int calcular_idade();
     std::string get_cpf();
     std::string get_nome();
     struct tm* get_data_nascimento();
