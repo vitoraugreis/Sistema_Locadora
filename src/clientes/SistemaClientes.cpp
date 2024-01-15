@@ -20,6 +20,20 @@ bool SistemaClientes::cadastrar_cliente(){
 
     Cliente* cliente = new Cliente(cpf, nome, data_nascimento);
     this->clientes.push_back(cliente);
+    return true;
+}
+
+bool SistemaClientes::deletar_cliente(std::string cpf){
+    for(auto it = this->clientes.begin(); it != this->clientes.end(); it++){
+        if((*it)->get_cpf() == cpf){
+            delete *it;
+            this->clientes.erase(it);
+            std::cout << "Cliente deletado com sucesso." << std::endl;
+            return true;
+        }
+    }
+
+    throw clientes_excp::cliente_inexistente();
 }
 
 Cliente* SistemaClientes::pesquisar_cliente(std::string cpf){
