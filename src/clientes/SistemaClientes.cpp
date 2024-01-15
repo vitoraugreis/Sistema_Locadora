@@ -31,6 +31,27 @@ Cliente* SistemaClientes::pesquisar_cliente(std::string cpf){
     return nullptr;
 }
 
+void SistemaClientes::listar_clientes(){
+    std::string separacao = "";
+    for(int i = 0; i<60; i++){ separacao += "="; }
+
+    if(this->clientes.empty()){
+        std::cout << "Nao ha clientes cadastrados." << std::endl;
+        return;
+    }
+
+    for(Cliente* cliente : this->clientes){
+        char buffer[11]; 
+        strftime(buffer, 11, "%d/%m/%Y", cliente->get_data_nascimento());
+
+        std::cout << "Nome: " << cliente->get_nome() << std::endl;
+        std::cout << "Cpf: " << cliente->get_cpf() << std::endl;
+        std::cout << "Data de nascimento: " << buffer << std::endl;
+
+        std::cout << separacao << std::endl;
+    }
+}
+
 bool verificacao_cpf(SistemaClientes* sistema, std::string cpf){
     if(cpf.length() != 11){
         throw clientes_excp::cpf_tamanho_invalido();

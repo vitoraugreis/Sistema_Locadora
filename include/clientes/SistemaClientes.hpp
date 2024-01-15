@@ -14,7 +14,9 @@ private:
 public:
     SistemaClientes();
     bool cadastrar_cliente();
+    bool deletar_cliente(std::string cpf);
     Cliente* pesquisar_cliente(std::string cpf);
+    void listar_clientes();
 };
 
 bool verificacao_cpf(SistemaClientes* sistema, std::string cpf);

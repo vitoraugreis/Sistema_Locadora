@@ -6,6 +6,7 @@ int main(){
     try{
         sistema.cadastrar_cliente();
         std::cout << sistema.pesquisar_cliente("12345678999")->calcular_idade() << std::endl;
+        sistema.listar_clientes();
     } catch(clientes_excp::cpf_tamanho_invalido &e){
         std::cerr << e.what() << std::endl;
     } catch(clientes_excp::cpf_caractere_invalido &e){
