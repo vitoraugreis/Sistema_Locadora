@@ -22,6 +22,7 @@ public:
     std::string get_cpf();
     std::string get_nome();
     struct tm* get_data_nascimento();
+    ~Cliente();
 };
 
 #endif

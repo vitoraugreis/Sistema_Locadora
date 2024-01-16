@@ -11,6 +11,10 @@
 class SistemaClientes{
 private:
     std::list<Cliente*> clientes;
+
+    bool verificacao_cpf(std::string cpf);
+    bool verificacao_data_nascimento(struct tm* data_nascimento);
+
 public:
     SistemaClientes();
     bool cadastrar_cliente();
@@ -18,8 +22,5 @@ public:
     Cliente* pesquisar_cliente(std::string cpf);
     void listar_clientes();
 };
-
-bool verificacao_cpf(SistemaClientes* sistema, std::string cpf);
-bool verificacao_data_nascimento(struct tm* data_nascimento);
 
 #endif

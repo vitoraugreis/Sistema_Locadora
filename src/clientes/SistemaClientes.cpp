@@ -7,7 +7,7 @@ SistemaClientes::SistemaClientes(){
 bool SistemaClientes::cadastrar_cliente(){
     std::string cpf;
     std::cout << "Insira o cpf do cliente: "; std::cin >> cpf;
-    verificacao_cpf(this, cpf);
+    this->verificacao_cpf(cpf);
 
     std::string nome;
     std::cout << "Insira o nome do cliente: "; std::cin >> nome;
@@ -16,7 +16,7 @@ bool SistemaClientes::cadastrar_cliente(){
     std::cout << "Insira a data de nascimento do cliente (dd/mm/aaaa): ";
     std::cin >> std::get_time(&data_nascimento, FORMATO_DATA);
     data_nascimento.tm_hour = 0; data_nascimento.tm_min = 0; data_nascimento.tm_sec = 0;
-    verificacao_data_nascimento(&data_nascimento);
+    this->verificacao_data_nascimento(&data_nascimento);
 
     Cliente* cliente = new Cliente(cpf, nome, data_nascimento);
     this->clientes.push_back(cliente);
@@ -66,7 +66,7 @@ void SistemaClientes::listar_clientes(){
     }
 }
 
-bool verificacao_cpf(SistemaClientes* sistema, std::string cpf){
+bool SistemaClientes::verificacao_cpf(std::string cpf){
     if(cpf.length() != 11){
         throw clientes_excp::cpf_tamanho_invalido();
     }
@@ -75,14 +75,14 @@ bool verificacao_cpf(SistemaClientes* sistema, std::string cpf){
             throw clientes_excp::cpf_caractere_invalido();
         }
     }
-    if (sistema->pesquisar_cliente(cpf) != nullptr){
+    if (this->pesquisar_cliente(cpf) != nullptr){
         throw clientes_excp::cpf_existente();
     }
 
     return true;
 }
 
-bool verificacao_data_nascimento(struct tm* data_nascimento){
+bool SistemaClientes::verificacao_data_nascimento(struct tm* data_nascimento){
     time_t horario_atual_bruta = time(NULL);
     time_t data_nascimento_bruta = mktime(data_nascimento);
 

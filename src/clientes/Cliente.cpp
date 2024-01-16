@@ -36,3 +36,7 @@ std::string Cliente::get_nome(){
 struct tm* Cliente::get_data_nascimento(){
     return &this->data_nascimento;
 }
+
+Cliente::~Cliente(){
+    std::cout << this->cpf << " deletado (Destrutor)" << std::endl;
+}
