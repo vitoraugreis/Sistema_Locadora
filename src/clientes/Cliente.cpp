@@ -37,6 +37,14 @@ struct tm* Cliente::get_data_nascimento(){
     return &this->data_nascimento;
 }
 
+void Cliente::set_nome(std::string nome){
+    this->nome = nome;
+}
+
+void Cliente::set_data_nascimento(struct tm* data_nascimento){
+    this->data_nascimento = *data_nascimento;
+}
+
 Cliente::~Cliente(){
     std::cout << this->cpf << " deletado (Destrutor)" << std::endl;
 }

@@ -14,14 +14,16 @@ private:
     std::string cpf;
     std::string nome;
     struct tm data_nascimento;
-    // midias alugadas
-    // historico
+    // midias alugadas -> list de midias
+    // historico -> map: (key: date) : (value: list de midias)
 public:
     Cliente(std::string cpf, std::string nome, struct tm data_nascimento);
     int calcular_idade();
     std::string get_cpf();
     std::string get_nome();
     struct tm* get_data_nascimento();
+    void set_nome(std::string nome);
+    void set_data_nascimento(struct tm* data_nascimento);
     ~Cliente();
 };
 

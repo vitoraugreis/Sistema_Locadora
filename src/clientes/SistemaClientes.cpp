@@ -7,7 +7,7 @@ SistemaClientes::SistemaClientes(){
 bool SistemaClientes::cadastrar_cliente(){
     std::string cpf;
     std::cout << "Insira o cpf do cliente: "; std::cin >> cpf;
-    this->verificacao_cpf(cpf);
+    this->validar_cpf(cpf);
 
     std::string nome;
     std::cout << "Insira o nome do cliente: "; std::cin >> nome;
@@ -16,7 +16,7 @@ bool SistemaClientes::cadastrar_cliente(){
     std::cout << "Insira a data de nascimento do cliente (dd/mm/aaaa): ";
     std::cin >> std::get_time(&data_nascimento, FORMATO_DATA);
     data_nascimento.tm_hour = 0; data_nascimento.tm_min = 0; data_nascimento.tm_sec = 0;
-    this->verificacao_data_nascimento(&data_nascimento);
+    this->validar_data_nascimento(&data_nascimento);
 
     Cliente* cliente = new Cliente(cpf, nome, data_nascimento);
     this->clientes.push_back(cliente);
@@ -34,6 +34,36 @@ bool SistemaClientes::deletar_cliente(std::string cpf){
     }
 
     throw clientes_excp::cliente_inexistente();
+}
+
+bool SistemaClientes::atualizar_cadastro(std::string cpf){
+    Cliente* cliente = this->pesquisar_cliente(cpf);
+    if(cliente == nullptr){
+        throw clientes_excp::cliente_inexistente();
+    }
+
+    char confirmacao_alterar_nome;
+    std::cout << "Deseja alterar o nome do cliente? ('s' ou 'n'): "; std::cin >> confirmacao_alterar_nome;
+    if(confirmacao_alterar_nome == 's'){
+        std::string novo_nome;
+        std::cout << "Insira o nome do cliente: "; std::cin >> novo_nome;
+        cliente->set_nome(novo_nome);
+        std::cout << "Nome atualizado com sucesso!" << std::endl;
+    }
+
+    char confirmacao_alterar_data_nascimento;
+    std::cout << "Deseja alterar o nome do cliente? ('s' ou 'n'): "; std::cin >> confirmacao_alterar_data_nascimento;
+    if(confirmacao_alterar_data_nascimento == 's'){
+        struct tm nova_data_nascimento;
+        std::cout << "Insira a data de nascimento do cliente (dd/mm/aaaa): ";
+        std::cin >> std::get_time(&nova_data_nascimento, FORMATO_DATA);
+        nova_data_nascimento.tm_hour = 0; nova_data_nascimento.tm_min = 0; nova_data_nascimento.tm_sec = 0;
+        this->validar_data_nascimento(&nova_data_nascimento);
+        cliente->set_data_nascimento(&nova_data_nascimento);
+        std::cout << "Data de nascimento atualizada com sucesso!" << std::endl;
+    }
+
+    return true;
 }
 
 Cliente* SistemaClientes::pesquisar_cliente(std::string cpf){
@@ -66,7 +96,7 @@ void SistemaClientes::listar_clientes(){
     }
 }
 
-bool SistemaClientes::verificacao_cpf(std::string cpf){
+bool SistemaClientes::validar_cpf(std::string cpf){
     if(cpf.length() != 11){
         throw clientes_excp::cpf_tamanho_invalido();
     }
@@ -82,7 +112,7 @@ bool SistemaClientes::verificacao_cpf(std::string cpf){
     return true;
 }
 
-bool SistemaClientes::verificacao_data_nascimento(struct tm* data_nascimento){
+bool SistemaClientes::validar_data_nascimento(struct tm* data_nascimento){
     time_t horario_atual_bruta = time(NULL);
     time_t data_nascimento_bruta = mktime(data_nascimento);
 
